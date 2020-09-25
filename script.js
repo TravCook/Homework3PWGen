@@ -11,6 +11,7 @@ var lcAmount = 0;
 var ucAmount = 0;
 var numAmount = 0;
 var spAmount = 0;
+var finalPass;
 
 var charChoice = 0;
 var selectedChar;
@@ -63,7 +64,7 @@ if (emptyPass.length < 8){
 
 //Full password is now stored in emptyPass
 
-var finalPass = emptyPass.join('');
+finalPass = emptyPass.join('');
 return finalPass;
 }
 // Write password to the #password input
