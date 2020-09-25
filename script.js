@@ -7,51 +7,65 @@ var generateBtn = document.querySelector("#generate");
 //52-61 is the numbers
 //62-68 is special characters
 var pwCharacters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "!", "@", "#", "$", "%", "&", "?"]
+var lcAmount = 0;
+var ucAmount = 0;
+var numAmount = 0;
+var spAmount = 0;
 
+var charChoice = 0;
+var selectedChar;
 
-//Ask the user if they want to use any of the specific character types
-  //do you want to use lowercase characters?
-    //if yes, ask user to specify how many
-      //how many lowercase characters? (store this for later)
-    //if no, move on to next question
-  //do you want to use uppercase characters?
-    //if yes ask user to specify how many
-      //how many uppercase characters? (store this for later)
-    //if no move on to the next question
-  //do you want to use numbers?
-    //if yes ask user to specify how many
-      //how many number characters? (store this for later)
-    //if no move on to the next question
-  //do you want to use special characters?
-    //if yes ask user to specify how many
-      //how many special characters? (store this for later)
-    //if no move on to the next question
+//Generates the password upon loading the page using prompts. Stores the output in an array  
+function generatePassword(){
+  var emptyPass = [];
+  var lcInput = confirm("Would you like to use lowercase letters?");
+  if (lcInput){
+    lcAmount = prompt("How many lowercase letters?")
+    for (i=0; i<lcAmount; i++){
+      charChoice = Math.floor(Math.random() * 26)
+      selectedChar = pwCharacters[charChoice];
+      emptyPass.push(selectedChar);
+    }
+  }
+  var ucInput = confirm("Would you like to use capital letters?");
+  if (ucInput){
+    ucAmount = prompt("How many capital letters?")
+    for (i=0; i<ucAmount; i++){
+      charChoice = Math.floor(Math.random() * 25) +26
+      selectedChar = pwCharacters[charChoice];
+      emptyPass.unshift(selectedChar);
+    }
+  }
+  var numInput = confirm("Would you like to use numbers?");
+  if (numInput){
+    numAmount = prompt("How many numbers?")
+    for (i=0; i<numAmount; i++){
+      charChoice = Math.floor(Math.random() * 10) +52
+      selectedChar = pwCharacters[charChoice];
+      emptyPass.unshift(selectedChar);
+    }
+  }
+  var spInput = confirm("Would you like to use special characters?");
+  if (spInput){
+    spAmount = prompt("How many special characters?")
+    for (i=0; i<spAmount; i++){
+      charChoice = Math.floor(Math.random() * 7) +62
+      selectedChar = pwCharacters[charChoice];
+      emptyPass.push(selectedChar);
+  }
+}
 
-    //Math.floor(Math.random() * 11);      // returns a random integer from 0 to 10
-    //Math.floor(Math.random() * 10) + 1;  // returns a random integer from 1 to 10
+if (emptyPass.length < 8){
+  alert("Error! Not enough characters chosen!")
+}else if(emptyPass.length > 128){
+  alert("Error! too many characters chosen!")
+}
 
+//Full password is now stored in emptyPass
 
-
-  //when a user specifies an input and an amount, run for loop for i where i <= their input and the loop picks one of the previously specified characters with the Mathrandom function
-  //then store the selected random character into an array (var finalPass = [,])
-  //then all you gotta do is figure out how to print the array lol (var passString = finalpass.toString())
-  //just send passString over to the html box after pw is fully generated 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+var finalPass = emptyPass.join('');
+return finalPass;
+}
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
